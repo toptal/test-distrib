@@ -6,6 +6,7 @@ gem 'distrib-core', path: '../distrib-core'
 
 gem 'pry'
 gem 'pry-byebug'
+gem 'rake'
 gem 'rspec', '~> 3.13.0'
 gem 'simplecov'
 

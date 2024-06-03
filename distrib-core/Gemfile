@@ -4,6 +4,7 @@ gemspec
 
 gem 'pry'
 gem 'pry-byebug'
+gem 'rake'
 gem 'rspec', '~> 3.13'
 gem 'rubocop'
 gem 'rubocop-rspec'
