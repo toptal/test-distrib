@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  BUNDLE_FROZEN: true
+
+jobs:
+  rubocop:
+    name: distrib-core - Linters
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+        working-directory: distrib-core
+
+    - name: Run RuboCop
+      run: bundle exec rubocop
+      working-directory: distrib-core
+
+    - name: Run yardoc
+      run: bundle exec yardoc --fail-on-warning
+      working-directory: distrib-core

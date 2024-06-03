@@ -1,0 +1,6 @@
+RSpec::Distrib.configure do |config|
+  config.error_handler = DistribCore::Leader::RetryOnDifferentErrorHandler.new(
+    ::RSpec::Distrib::Leader::RSpecHelper,
+    retry_limit: 3
+  )
+end

@@ -1,0 +1,69 @@
+version: 2
+
+updates:
+  - package-ecosystem: bundler
+    directory: "/distrib-core"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "07:00"
+    pull-request-branch-name:
+      separator: "-"
+    labels:
+      - "no-jira"
+      - "ruby"
+      - "dependencies"
+    reviewers:
+      - "toptal/devx"
+    insecure-external-code-execution: allow
+    open-pull-requests-limit: 2
+
+  - package-ecosystem: bundler
+    directory: "/rspec-distrib"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "07:00"
+    pull-request-branch-name:
+      separator: "-"
+    labels:
+      - "no-jira"
+      - "ruby"
+      - "dependencies"
+    reviewers:
+      - "toptal/devx"
+    insecure-external-code-execution: allow
+    open-pull-requests-limit: 2
+
+  - package-ecosystem: bundler
+    directory: "/features-parser"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "07:00"
+    pull-request-branch-name:
+      separator: "-"
+    labels:
+      - "no-jira"
+      - "ruby"
+      - "dependencies"
+    reviewers:
+      - "toptal/devx"
+    insecure-external-code-execution: allow
+    open-pull-requests-limit: 2
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "07:00"
+    pull-request-branch-name:
+      separator: "-"
+    labels:
+      - "no-jira"
+      - "dependencies"
+      - "gha"
+    reviewers:
+      - "toptal/devx"
+    open-pull-requests-limit: 2

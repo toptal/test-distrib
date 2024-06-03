@@ -1,0 +1,16 @@
+source 'https://rubygems.org'
+
+gemspec
+
+gem 'distrib-core', path: '../distrib-core'
+
+gem 'pry'
+gem 'pry-byebug'
+gem 'rspec', '~> 3.13.0'
+gem 'simplecov'
+
+group :linters do
+  gem 'rubocop'
+  gem 'rubocop-rspec'
+  gem 'yard'
+end

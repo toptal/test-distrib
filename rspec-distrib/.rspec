@@ -1,0 +1,4 @@
+--color
+--require spec_helper
+--require pry
+--exclude-pattern 'features/fixtures/**/*_spec.rb'

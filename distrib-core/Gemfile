@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gemspec
+
+gem 'pry'
+gem 'pry-byebug'
+gem 'rspec', '~> 3.13'
+gem 'rubocop'
+gem 'rubocop-rspec'
+gem 'simplecov'
+gem 'timecop'
+gem 'yard'
