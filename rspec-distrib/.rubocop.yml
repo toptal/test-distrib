@@ -1,0 +1,53 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  NewCops: enable
+  Exclude:
+    - features/fixtures/**/*
+    - coverage/**/*
+    - bundle/**/*
+    - vendor/**/*
+
+RSpec/StubbedMock:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - features/**/*
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/DescribeClass:
+  Exclude:
+    - features/**/*
+
+RSpec/ExpectActual:
+  Exclude:
+    - features/fixtures/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Include:
+    - spec/**/*
+    - features/**/*

@@ -1,0 +1,17 @@
+name: Question
+description: Ask a question or start a discussion
+title: "[QUESTION] Brief description of the question"
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Your question**
+        Describe your question or topic for discussion.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional context"
+      description: "Add any other context or information that might be useful to answer your question"
+      placeholder: "Additional context"

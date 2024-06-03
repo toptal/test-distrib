@@ -1,0 +1,47 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  NewCops: enable
+  Exclude:
+    - coverage/**/*
+    - bundle/**/*
+    - vendor/**/*
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - lib/distrib_core/configuration.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - lib/distrib_core/spec/**/*
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/StubbedMock:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - lib/distrib-core.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Include:
+    - spec/**/*

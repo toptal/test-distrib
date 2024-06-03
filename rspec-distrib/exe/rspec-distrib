@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+usage = <<USAGE
+  Usage: rspec-distrib start [seed]
+         rspec-distrib join leader_address
+USAGE
+
+command = ARGV.shift
+unless command && %w[start join].include?(command)
+  warn usage
+  exit 1
+end
+
+require 'rspec/distrib'
+
+def load_custom_rspec_distrib_configuration
+  load('.rspec-distrib') if File.exist?('.rspec-distrib')
+end
+
+%w[TERM INT].each do |sig|
+  DistribCore::ReceivedSignals.trap(sig)
+end
+
+case command
+when 'start'
+  RSpec::Distrib.kind = :leader
+  load_custom_rspec_distrib_configuration
+
+  require 'rspec/distrib/leader'
+  seed = ARGV.shift
+  # Wrap in a thread to avoid insecure operation exceptions in rubygems and bundler
+  Thread.new { RSpec::Distrib::Leader.start_service(seed&.to_i) }.join
+when 'join'
+  RSpec::Distrib.kind = :worker
+  load_custom_rspec_distrib_configuration
+
+  require 'rspec/distrib/worker'
+  leader_address = ARGV.shift
+  RSpec::Distrib::Worker.join(leader_address)
+end

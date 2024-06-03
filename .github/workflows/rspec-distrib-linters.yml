@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  BUNDLE_ONLY: linters
+
+jobs:
+  linters:
+    name: rspec-distrib - Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: rspec-distrib
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+        working-directory: rspec-distrib
+
+      - name: Run yardoc
+        run: bundle exec yardoc --fail-on-warning
+        working-directory: rspec-distrib

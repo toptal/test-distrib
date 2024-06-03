@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+require 'rspec/core'
+require './features_formatter'
+
+RSpec::Distrib.configure do |config|
+  config.tests_provider = lambda {
+    folder = ENV.fetch('RSPEC_DISTRIB_FOLDER')
+    directory = Pathname(__dir__).join(folder)
+    raise "Invalid RSPEC_DISTRIB_FOLDER. No such directory - #{directory}." unless directory.directory?
+
+    Dir[directory.join('**/*_spec.rb')].sort
+  }
+
+  config.logger.level = Logger::DEBUG
+
+  config.test_timeout = Integer(ENV.fetch('RSPEC_DISTRIB_FEATURES_TEST_TIMEOUT', '2'), 10)
+  config.first_test_picked_timeout = Integer(ENV.fetch('RSPEC_DISTRIB_FEATURES_FIRST_TEST_PICKED_TIMEOUT', '2'), 10)
+  config.tests_processing_stopped_timeout = 2
+
+  config.on_finish = -> { puts 'on_finish called' }
+
+  config.add_leader_formatter('progress')
+  config.add_leader_formatter(FeaturesFormatter)
+  config.add_worker_formatter(FeaturesFormatter)
+
+  config.error_handler.retryable_exceptions = %w[RetryThisError]
+  config.error_handler.retry_attempts = 2
+  config.error_handler.fatal_worker_failures = []
+  config.error_handler.failed_workers_threshold = 0
+
+  config.before_test_report = lambda { |_file_path, example_groups, _exception|
+    example_groups.each { |eg| eg.metadata[:custom_metadata_field] = 'present' }
+  }
+end
