@@ -13,6 +13,7 @@ updates:
       - "no-jira"
       - "ruby"
       - "dependencies"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -30,6 +31,7 @@ updates:
       - "no-jira"
       - "ruby"
       - "dependencies"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -47,6 +49,7 @@ updates:
       - "no-jira"
       - "ruby"
       - "dependencies"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -64,6 +67,7 @@ updates:
       - "no-jira"
       - "dependencies"
       - "gha"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     open-pull-requests-limit: 2
