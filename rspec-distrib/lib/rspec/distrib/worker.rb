@@ -3,7 +3,7 @@ require 'rspec/distrib/worker/rspec_runner'
 
 module RSpec
   module Distrib
-    # Wrapper around {RSpec::Distrib::RSpecRunner}
+    # Wrapper around {RSpec::Distrib::RSpecRunner}.
     module Worker
       # Start a worker instance with a given leader ip.
       #

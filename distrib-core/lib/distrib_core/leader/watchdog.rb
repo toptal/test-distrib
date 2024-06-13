@@ -1,5 +1,3 @@
-require 'rainbow/refinement'
-
 module DistribCore
   module Leader
     # A watchdog to observe the state of queue.
@@ -8,8 +6,6 @@ module DistribCore
     # A thread watching over presence of the entries on the queue and lease
     # timeouts. Stops the {Leader} by stopping its DRb exposed service.
     class Watchdog # rubocop:disable Metrics/ClassLength
-      using Rainbow
-
       def initialize(queue)
         @queue = queue
         @failed = false

@@ -21,9 +21,9 @@ jobs:
           working-directory: rspec-distrib
 
       - name: Run specs
-        run: bundle exec rspec spec/
+        run: bundle exec rspec spec
         working-directory: rspec-distrib
 
       - name: Run features
-        run: bundle exec rspec features/
+        run: bundle exec rspec features
         working-directory: rspec-distrib

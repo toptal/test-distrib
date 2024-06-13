@@ -4,6 +4,7 @@ require:
 AllCops:
   DisplayCopNames: true
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - coverage/**/*
     - bundle/**/*

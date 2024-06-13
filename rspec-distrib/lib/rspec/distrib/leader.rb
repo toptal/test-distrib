@@ -12,13 +12,13 @@ module RSpec
     # Transport used is [DRb](https://rubydoc.info/stdlib/drb/DRb)
     class Leader # rubocop:disable Metrics/ClassLength
       include ::DistribCore::Leader
-      # Used to interpolate with leader ip in order to generate the actual DRb server URL
+      # Used to interpolate with leader ip in order to generate the actual DRb server URL.
       DRB_SERVER_URL = 'druby://%s:8787'.freeze
-      # We can't calculate total amount of examples. But we need to provide a big number to prevent warnings
+      # We can't calculate total amount of examples. But we need to provide a big number to prevent warnings.
       FAKE_TOTAL_EXAMPLES_COUNT = 1_000_000_000
 
       class << self
-        # Starts the DRb server and Watchdog thread
+        # Starts the DRb server and Watchdog thread.
         #
         # @param seed [Integer] a seed for workers to randomize order of examples
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity

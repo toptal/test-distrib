@@ -1,14 +1,16 @@
 # distrib-core
 
-Is a common core module for [rspec-distrib](../rspec-distrib).
+This is a common core module for *-distrib runners.
+At this point for [rspec-distrib](../rspec-distrib).
 
 ## Installation
 
 Add the gem to the application's Gemfile:
 
 ```ruby
-gem 'distrib-core', git: 'git@github.com:toptal/test-distrib.git',
-  glob: 'distrib-core/*.gemspec'
+git 'git@github.com:toptal/test-distrib.git', branch: 'main' do
+  gem 'distrib-core', require: false, group: [:test]
+end
 ```
 
 ## Getting started

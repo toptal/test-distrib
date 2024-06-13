@@ -8,7 +8,7 @@ module DistribCore
       configuration.instance_eval(...)
     end
 
-    # Set kind of the current instance
+    # Set kind of the current instance.
     #
     # @param kind [Symbol] `:leader` or `:worker` only
     def kind=(kind)

@@ -1,8 +1,7 @@
 module DistribCore
   module Leader
-    # Helper that builds a list of the test files to execute sorted by average
-    # execution time descending. The order strategy is backed by
-    # https://en.wikipedia.org/wiki/Queueing_theory
+    # Helper that builds a list of the test files to execute.
+    # The order of files is controlled by used tests provider.
     module QueueBuilder
       # @return [Array<String>] list of test files in the order they should be enqueued
       def self.tests

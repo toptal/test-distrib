@@ -14,7 +14,7 @@ require 'rspec/distrib/worker/configuration'
 module RSpec
   module Distrib
     module Worker
-      # Modified RSpec runner to consume files from the leader
+      # Modified RSpec runner to consume files from the leader.
       #
       # @see https://github.com/rspec/rspec-core/blob/master/lib/rspec/core/runner.rb
       class RSpecRunner < RSpec::Core::Runner # rubocop:disable Metrics/ClassLength
@@ -37,8 +37,9 @@ module RSpec
 
           handle_configuration_failure do
             @options = RSpec::Core::ConfigurationOptions.new(["--seed=#{@seed}"])
-            # as long as there is this assignment to global variable
+            # As long as there is this assignment to global variable
             # the test have to restore RSpec.configuration after the example
+            #
             # see `around` block in spec/rspec/distrib/worker/rspec_runner_spec.rb
             @configuration = RSpec.configuration = RSpec::Distrib::Worker::Configuration.new
             @configuration.leader = leader
@@ -59,14 +60,14 @@ module RSpec
           handle_configuration_failure do
             @configuration.reporter.report(Leader::FAKE_TOTAL_EXAMPLES_COUNT) do |reporter|
               @configuration.with_suite_hooks do
-                # Disable handler since consume_queue has it's own handler
+                # Disable handler since consume_queue has it's own handler.
                 @handle_configuration_failure = false
                 consume_queue(reporter)
               end
             end
           end
-          persist_example_statuses
 
+          persist_example_statuses
           return ::DistribCore::ReceivedSignals.exit_code if received_any_signal?
 
           success && !world.non_example_failure ? 0 : @configuration.failure_exit_code
@@ -99,8 +100,8 @@ module RSpec
 
             @success &= world.ordered_example_groups.map { |example_group| example_group.run(reporter) }.all?
 
-            # Should not send a possible broken report for the leader
-            # A report can be broken because other services (e.g. Redis, Elasticsearch) could have already terminated
+            # Should not send a possible broken report for the leader.
+            # A report can be broken because other services (e.g. Redis, Elasticsearch) could have already terminated.
             break if received_term? || received_force_int?
 
             report_file_to_leader(file_path, world.ordered_example_groups)
@@ -108,7 +109,7 @@ module RSpec
             break if received_int? || world.non_example_failure
           end
         rescue DRb::DRbConnError
-          # It raises when Leader is disconnected = a.k.a. queue is empty
+          # It raises when Leader is disconnected = a.k.a. queue is empty.
           logger.info 'Disconnected from leader, finishing'
         rescue Exception => e # rubocop:disable Lint/RescueException
           # TODO: I'm unsure about this rescue, but we need to report all cases to leader
@@ -185,9 +186,11 @@ module RSpec
           world.example_groups.clear
           @options = RSpec::Core::ConfigurationOptions.new(["--seed=#{@seed}", path])
           @options.configure(@configuration)
+
           if RSpec::Distrib.configuration.worker_color_mode
             @configuration.force(color_mode: RSpec::Distrib.configuration.worker_color_mode)
           end
+
           @configuration.load_spec_files
         end
 

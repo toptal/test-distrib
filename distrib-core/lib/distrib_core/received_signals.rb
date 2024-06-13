@@ -9,7 +9,6 @@ module DistribCore
       # @param sig [String] signal to trap
       # @example
       #     ::DistribCore::ReceivedSignals.trap('INT')
-      #
       def trap(sig)
         Signal.trap(sig) do
           # Second SIGINT finishes the process immediately
@@ -18,6 +17,7 @@ module DistribCore
             puts 'Received second SIGINT. Exiting...'
             Kernel.exit(2) # 2 is exit code for SIGINT
           end
+
           puts "Received #{sig}"
           signals.add(sig)
         end

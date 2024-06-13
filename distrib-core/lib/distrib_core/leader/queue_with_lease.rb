@@ -3,7 +3,7 @@ require 'monitor'
 
 module DistribCore
   module Leader
-    # Generic queue with lease.
+    # Generic queue-like, thread-safe container with lease.
     #
     # Additionally it keeps the time of the lease, allowing watchdog to return
     # (repush) timed out entries back to the queue.
