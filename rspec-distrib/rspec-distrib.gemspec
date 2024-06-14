@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.bindir = 'exe'
   s.executables = ['rspec-distrib']
 
+  s.add_dependency 'distrib-core'
   s.add_dependency 'rspec-core', '~> 3.12'
 
   s.metadata['rubygems_mfa_required'] = 'true'
