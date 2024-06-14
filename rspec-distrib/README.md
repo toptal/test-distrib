@@ -107,7 +107,7 @@ the execution results `report_file` back to the leader.
 
 ## Development
 
-To start up development of the gem first make sure you could run following commands without problems:
+To start up development of the gem first make sure you could run the following commands without problems:
 
 ```shell
 bundle install
