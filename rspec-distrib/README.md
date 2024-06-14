@@ -119,7 +119,7 @@ bundle exec yardoc --fail-on-warning
 
 Tests under `spec` are unit tests, while `features` are integration tests.
 
-Features could be used for manuall tests while developing.
+Features could be used for manual tests while developing.
 To proceed such manual test open following directory in **two separate console tabs**/windows:
 
 ```shell
