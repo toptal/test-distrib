@@ -4,7 +4,8 @@ module RSpec
   module Distrib
     # Helper to proxy getter methods to metadata attributes.
     module DelegateToMetadata
-      # Defines methods that fetch attributes from metadata hash
+      # Defines methods that fetch attributes from metadata hash.
+      #
       # @param keys [Array<String>]
       def delegate_to_metadata(*keys)
         keys.each { |key| define_method(key) { @metadata[key] } }

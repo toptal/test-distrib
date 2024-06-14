@@ -4,6 +4,7 @@ RSpec.shared_examples 'DistribCore configuration' do
     config = DistribCore::Configuration.instance_variable_get(:@current)
     DistribCore::Configuration.instance_variable_set(:@current, nil)
     example.run
+  ensure
     DistribCore::Configuration.instance_variable_set(:@current, config)
   end
 

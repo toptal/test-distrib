@@ -1,6 +1,7 @@
 module DistribCore
   module Leader
     # Only retry if the error is different.
+    # This is a specialized strategy to manage retries of tests.
     class RetryOnDifferentErrorHandler < ErrorHandler
       def initialize(exception_extractor, retry_limit: 2, repeated_error_limit: 1)
         super(exception_extractor)

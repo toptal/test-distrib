@@ -38,19 +38,15 @@ The queue is fault-tolerant, e.g. when a worker machine goes down or experiences
 a network partition, the spec file being executed is returned back to the queue
 on timeout, and later passed to another worker.
 
-Spec files are served from the slowest (basing on previous builds results) to
-fastest to reduce worker idle time, and reduce the risk of waiting for a long
-spec file to execute in the end of the build.
-
 ## Installation
 
 Add to the Gemfile:
 
 ```ruby
-gem 'distrib-core', git: 'git@github.com:toptal/test-distrib.git',
-  glob: 'distrib-core/*.gemspec'
-gem 'rspec-distrib', git: 'git@github.com:toptal/test-distrib.git',
-  glob: 'rspec-distrib/*.gemspec'
+git 'git@github.com:toptal/test-distrib.git', branch: 'main' do
+  gem 'distrib-core', require: false, group: [:test]
+  gem 'rspec-distrib', require: false, group: [:test]
+end
 ```
 
 ## Running
@@ -59,12 +55,10 @@ There is not much difference between running on local machine, or across the
 network.
 
 ```shell
-$ rspec-distrib start                    | $ rspec-distrib join localhost
+$ bundle exec rspec-distrib start        | $ bundle exec rspec-distrib join 127.0.0.1
 4386 files have been enqueued            | .................*......F..._
 Using seed 27792                         |
 ```
-
-You may have to prefix the command with `bundle exec`.
 
 ## Leader
 
@@ -111,6 +105,55 @@ the execution results `report_file` back to the leader.
 
 ![Worker workflow](docs/worker.png)
 
+## Development
+
+To start up development of the gem first make sure you could run the following commands without problems:
+
+```shell
+bundle install
+bundle exec rspec spec
+bundle exec rspec features
+bundle exec rubocop
+bundle exec yardoc --fail-on-warning
+```
+
+Tests under `spec` are unit tests, while `features` are integration tests.
+
+Features could be used for manual tests while developing.
+To proceed such manual test open following directory in **two separate console tabs**/windows:
+
+```shell
+cd features/fixtures/specs/
+```
+
+### Leader
+
+Pick features set (directory name) from [features/fixtures/specs](features/fixtures/specs).
+Assuming we want to run `passing` features set:
+
+```shell
+export RSPEC_DISTRIB_FOLDER=passing
+```
+
+Tune settings to have more time for manual tests:
+
+```shell
+export RSPEC_DISTRIB_FEATURES_TEST_TIMEOUT=5
+export RSPEC_DISTRIB_FEATURES_FIRST_TEST_PICKED_TIMEOUT=30
+```
+
+Start leader:
+
+```shell
+bundle exec rspec-distrib start
+```
+
+### Worker
+
+```shell
+bundle exec rspec-distrib join 127.0.0.1
+```
+
 ## Reports
 
 Workers are sending the example reports to the Leader immediately after running
@@ -121,6 +164,8 @@ all the previous reports.
 
 `rspec-distrib` expects to find configuration in `.rspec-distrib` file
 which is loaded if it exists. Configuration is expected to be a Ruby file.
+
+:information_source: See [rspec/distrib/configuration.rb](lib/rspec/distrib/configuration.rb) for the full list of options.
 
 ### Spec files to execute
 
@@ -186,7 +231,7 @@ class MyErrorHandlingStrategy
   end
 
   def ignore_worker_failure?(exception, context_description)
-    # return true to ingore the exception
+    # return true to ignore the exception
   end
 end
 ```
@@ -209,24 +254,18 @@ RSpec::Distrib.configure do |config|
 end
 ```
 
-Specify timeout per spec file. An object that responds to `call` and receives
+To specify timeout per spec file use and object that responds to `call` and receives
 the spec file path as an argument. The proc returns the timeout in seconds.
+This is also useful for cases where some specs have a timeout strategy and some
+don't.
 
 ```ruby
 RSpec::Distrib.configure do |config|
-  config.timeout_proc = ->(spec_file) do
+  config.test_timeout = ->(spec_file) do
     10 + 2 * average_execution_in_seconds(spec_file)
   end
 end
 ```
-
-If both `timeout_proc` and `test_timeout` are provided, `timeout_proc`
-will take precedence, unless it returns a falsey value, in which case
-it will fallback to `test_timeout`.
-This is useful for cases where some specs have a timeout strategy and some
-don't.
-
-### See lib/rspec/distrib/configuration.rb for the full list of options
 
 ## RSpec configuration
 
@@ -287,9 +326,9 @@ It's port 8787, default for [DRb].
 Yes, thread-safe data structures are used in the implementation, and access to
 non-thread-safe data structures is synchronized.
 
-> Are the workers using the same seed the execute the specs?
+> Are the workers using the same seed to execute the specs?
 
-Yes.
+Yes. Seed is set on the Leader side and passed to the workers.
 
 > Is it fault-tolerant?
 
@@ -302,9 +341,13 @@ they crash.
 The Leader drops the connection when there's nothing left, and Workers shut down
 gracefully.
 
-[DRb]: https://ruby-doc.org/stdlib-2.5.3/libdoc/drb/rdoc/DRb.html
-[knapsack]: https://github.com/ArturT/knapsack
-[parallel_tests]: https://github.com/grosser/parallel_tests
+> What's the order of serving the spec files?
+
+Order is controlled by `tests_provider`. Default provided strategy is at [rspec/distrib/leader/tests_provider.rb](rspec-distrib/lib/rspec/distrib/leader/tests_provider.rb) - it's simplified one.
+
+In more advanced scenario spec files could be served from the slowest (basing on previous builds results) to
+the fastest to reduce worker idle time, and reduce the risk of waiting for a long
+spec file to execute in the end of the build. This could be achieved by implementing custom provider.
 
 ## Contributing
 
@@ -313,3 +356,6 @@ Bug reports and pull requests are welcome [on GitHub](https://github.com/toptal/
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+[DRb]: https://ruby-doc.org/stdlib-2.5.3/libdoc/drb/rdoc/DRb.html
+[parallel_tests]: https://github.com/grosser/parallel_tests

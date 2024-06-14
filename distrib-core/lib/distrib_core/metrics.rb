@@ -2,7 +2,7 @@ module DistribCore
   # Collect metrics from Leader and Workers.
   module Metrics
     class << self
-      # Stores metrics
+      # Stores metrics.
       def report
         @report ||= {
           queue_exposed_at: nil,
@@ -12,17 +12,17 @@ module DistribCore
         }
       end
 
-      # Records Leader is ready to serve tests
+      # Records when Leader was ready to serve tests.
       def queue_exposed
         report[:queue_exposed_at] = Time.now.to_i
       end
 
-      # Records first test was taken by a worker
+      # Records when first test was taken by a worker
       def test_taken
         report[:first_test_taken_at] ||= Time.now.to_i
       end
 
-      # Records when watchdog repushes files back to queue because of timeout
+      # Records when watchdog repushes files back to queue because of timeout.
       #
       # @param test [String]
       # @param timeout_in_seconds [Float] timeout which was exceeded

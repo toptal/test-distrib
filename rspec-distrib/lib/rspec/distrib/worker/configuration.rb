@@ -8,7 +8,7 @@ module RSpec
         # @return [DRbObject(RSpec::Distrib::Leader)]
         attr_accessor :leader
 
-        # Overridden method which wraps original reporter with {LeaderReporter}
+        # Overridden method which wraps original reporter with {LeaderReporter}.
         # @return RSpec::Core::Formatters::Loader
         def formatter_loader
           @formatter_loader ||= begin
@@ -18,7 +18,7 @@ module RSpec
           end
         end
 
-        # Always true because seed comes from leader
+        # Always true because seed comes from leader.
         def seed_used?
           true
         end

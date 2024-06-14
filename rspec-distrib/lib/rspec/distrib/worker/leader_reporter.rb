@@ -4,7 +4,7 @@ module RSpec
   module Distrib
     module Worker
       # @api private
-      # Custom reporter to notify leader about non_example_exception
+      # Custom reporter to notify leader about non_example_exception.
       class LeaderReporter < SimpleDelegator
         # @param leader [DRbObject(RSpec::Distrib::Leader)]
         def initialize(leader, *)
@@ -12,7 +12,7 @@ module RSpec
           @leader = leader
         end
 
-        # Calls original behaviour and notifies leader
+        # Calls original behaviour and notifies leader.
         # @param exception [Exception]
         def notify_non_example_exception(exception, context_description)
           super

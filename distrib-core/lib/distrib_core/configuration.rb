@@ -4,12 +4,12 @@ require 'distrib_core/leader/retry_on_different_error_handler'
 require 'distrib_core/logger_broadcaster'
 
 module DistribCore
-  # This module contains shared attrs instantiated by specific configuration classes.
+  # This module contains shared attributes instantiated by specific configuration classes.
   #
   # @see DistribCore::Distrib#configure
   module Configuration
     class << self
-      # Set global configuration. Can be set only one time
+      # Set global configuration. Can be set only once.
       #
       # @param configuration [DistribCore::Configuration]
       def current=(configuration)
@@ -26,6 +26,8 @@ module DistribCore
 
     TIMEOUT_STRATEGIES = %i[repush release].freeze
 
+    # A test provider. It should be a callable object that returns a list of tests to execute.
+    #
     # @example Override default list of the tests:
     #     ...configure do |config|
     #       config.tests_provider = -> {
@@ -34,6 +36,9 @@ module DistribCore
     #     end
     attr_writer :tests_provider
 
+    # An object to handle errors. Defines strategy of managing retries of tests.
+    # It should be an instance of {DistribCore::Leader::ErrorHandler}.
+    #
     # @example Specify object to process exceptions during execution
     #     ...configure do |config|
     #       config.error_handler = MyErrorHandler.new
@@ -42,6 +47,8 @@ module DistribCore
 
     attr_writer :logger
 
+    # Set timeout for tests. It can be a number of seconds or a callable object that returns a number of seconds.
+    #
     # @example Set equal timeout for all tests to 30 seconds:
     #     ...configure do |config|
     #       config.test_timeout = 30 # seconds
@@ -55,19 +62,27 @@ module DistribCore
     #     end
     attr_accessor :test_timeout
 
-    # @example Set how long leader will wait before first test processed by workers. Leader will exit if no tests picked in this period
+    # Specify how long leader will wait before first test processed by workers. Leader will exit if no tests picked in this period.
+    # Value is in seconds.
+    #
+    # @example Set timeout to 10 minutes
     #     ...configure do |config|
     #       config.first_test_picked_timeout = 10*60 # 10 minutes
     #     end
     attr_accessor :first_test_picked_timeout
 
-    # @example Specify custom options for DRb service. Defaults are `{ safe_level: 1 }`. @see `DRb::DRbServer.new` for complete list
+    # Specify custom options for DRb service. Defaults are `{ safe_level: 1 }`.
+    # @see `DRb::DRbServer.new` for complete list.
+    #
+    # @example
     #     ...configure do |config|
     #       config.drb = {safe_level: 0, verbose: true}
     #     end
     attr_accessor :drb
 
-    # @example Specify custom block to pre-process examples before reporting them to the leader. Useful to add additional information about workers.
+    # Specify custom block to pre-process examples before reporting them to the leader. Useful to add additional information about workers.
+    #
+    # @example
     #     ...configure do |config|
     #       config.before_test_report = -> (file_name, example_groups) do
     #         example_groups.each { |eg| eg.metadata[:custom] = 'foo' }
@@ -75,7 +90,9 @@ module DistribCore
     #     end
     attr_accessor :before_test_report
 
-    # @example Specify custom block which will be called on leader after run.
+    # Specify custom block which will be called on leader after run.
+    #
+    # @example
     #     ...configure do |config|
     #       config.on_finish = -> () do
     #         'Whatever logic before leader exit'
@@ -83,13 +100,33 @@ module DistribCore
     #     end
     attr_accessor :on_finish
 
+    # Specify a debug logger.
+    #
     # @example Disable (mute) debug logger
     #     ...configure do |config|
     #       config.debug_logger = Logger.new(nil)
     #     end
     attr_writer :debug_logger
 
-    attr_accessor :tests_processing_stopped_timeout, :drb_tcp_socket_connection_timeout, :leader_connection_attempts
+    # Specify how long leader will wait for test to be picked by a worker. Leader will exit if no test is picked in this period.
+    # Value is in seconds.
+    attr_accessor :tests_processing_stopped_timeout
+
+    # Specify a connection timeout on DRb Socket.
+    # Value is in seconds.
+    # @see {DRb::DRbTCPSocket} monkey patch.
+    attr_accessor :drb_tcp_socket_connection_timeout
+
+    # Specify how many times worker will try to connect to the leader.
+    attr_accessor :leader_connection_attempts
+
+    # Specify a strategy for handling timed out tests.
+    # Can be one of `:repush` or `:release`.
+    #
+    # @example Change strategy to `:release`
+    #     ...configure do |config|
+    #       config.timeout_strategy = :release
+    #     end
     attr_reader :timeout_strategy
 
     # Initialize configuration with default values and set it to {DistribCore::Configuration.current}
@@ -100,24 +137,24 @@ module DistribCore
       @first_test_picked_timeout = 10 * 60 # 10 minutes
       @tests_processing_stopped_timeout = 5 * 60 # 5 minutes
       @drb = { safe_level: 1 }
-      @drb_tcp_socket_connection_timeout = 5 # 5 seconds
+      @drb_tcp_socket_connection_timeout = 5 # in seconds
       @leader_connection_attempts = 200
       self.timeout_strategy = :repush
     end
 
-    # Provider for tests to execute
+    # Provider for tests to execute.
     #
     # @return [Proc, Object#call] an object which responds to `#call`
     def tests_provider
       @tests_provider || raise(NotImplementedError)
     end
 
-    # Object to handle errors from workers
+    # Object to handle errors from workers.
     def error_handler
       @error_handler || raise(NotImplementedError)
     end
 
-    # Gives a timeout for a particular test based on `#test_timeout`
+    # Gives a timeout for a particular test based on `#test_timeout`.
     #
     # @see #test_timeout
     #
