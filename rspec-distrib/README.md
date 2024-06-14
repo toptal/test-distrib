@@ -346,7 +346,7 @@ gracefully.
 Order is controlled by `tests_provider`. Default provided strategy is at [rspec/distrib/leader/tests_provider.rb](rspec-distrib/lib/rspec/distrib/leader/tests_provider.rb) - it's simplified one.
 
 In more advanced scenario spec files could be served from the slowest (basing on previous builds results) to
-fastest to reduce worker idle time, and reduce the risk of waiting for a long
+the fastest to reduce worker idle time, and reduce the risk of waiting for a long
 spec file to execute in the end of the build. This could be achieved by implementing custom provider.
 
 ## Contributing
