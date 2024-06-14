@@ -9,7 +9,7 @@ module DistribCore
   # @see DistribCore::Distrib#configure
   module Configuration
     class << self
-      # Set global configuration. Can be set only one time.
+      # Set global configuration. Can be set only once.
       #
       # @param configuration [DistribCore::Configuration]
       def current=(configuration)
