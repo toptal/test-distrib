@@ -17,4 +17,4 @@ This is a monorepo. Please follow to each gem's directory to get more insights.
 
 ## features-parser
 
-[features-parser](./features-parser/README.md) gems is a helper for cucumber-distrib runner. cucumber-distrib is not open-sourced.
+[features-parser](./features-parser/README.md) gem is a helper for cucumber-distrib runner. cucumber-distrib is not open-sourced.
