@@ -7,7 +7,7 @@ PATH
   remote: .
   specs:
     rspec-distrib (0.0.1)
-      distrib-core
+      distrib-core (~> 0.0.1)
       rspec-core (~> 3.12)
 
 GEM

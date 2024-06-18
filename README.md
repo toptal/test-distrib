@@ -22,4 +22,4 @@ It will be open-sourced down the road. Stay tuned!
 
 ## features-parser
 
-[features-parser](./features-parser/README.md) gems is a helper for cucumber-distrib runner.
+[features-parser](./features-parser/README.md) gem is a helper for cucumber-distrib runner. cucumber-distrib is not open-sourced.
