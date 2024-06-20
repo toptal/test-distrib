@@ -29,7 +29,7 @@ module DistribCore
       end
 
       # @param sig [String]
-      # @return [TrueClass, FalseClass] `true` if signal `sig` was recieved
+      # @return [TrueClass, FalseClass] `true` if signal `sig` was received
       def received?(sig)
         signals.member?(sig)
       end
