@@ -67,7 +67,7 @@ aggregate the results of running those specs with RSpec.
 
 The following command:
 - builds a queue of spec files
-- starts a watchdog thread (see more about watchdog in the 3nd stage)
+- starts a watchdog thread (see more about watchdog in the 3rd stage)
 - exposes a Leader [DRb] server on all the network interfaces
 
 ```shell
