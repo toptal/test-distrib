@@ -15,6 +15,11 @@ This is a monorepo. Please follow to each gem's directory to get more insights.
 
 [rspec-distrib](./rspec-distrib/README.md) gem is an implementation of distrib runner for [RSpec](https://rspec.info/) tests.
 
+## cucumber-distrib
+
+cucumber-distrib gem is an implementation of distrib runner for [Cucumber](https://cucumber.io/).
+It will be open-sourced down the road. Stay tuned!
+
 ## features-parser
 
-[features-parser](./features-parser/README.md) gem is a helper for cucumber-distrib runner. cucumber-distrib is not open-sourced.
+[features-parser](./features-parser/README.md) gem is a helper for cucumber-distrib runner.
