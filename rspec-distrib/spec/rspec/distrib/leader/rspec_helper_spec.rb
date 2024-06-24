@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RSpec::Distrib::Leader::RSpecHelper do # rubocop:disable RSpec/FilePath, RSpec/SpecFilePathFormat
+RSpec.describe RSpec::Distrib::Leader::RSpecHelper do # rubocop:disable RSpec/SpecFilePathFormat
   describe '.failures_of' do
     it do
       errors = [

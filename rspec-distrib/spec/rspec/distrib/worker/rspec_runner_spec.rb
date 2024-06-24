@@ -2,7 +2,7 @@
 
 require 'tempfile'
 
-RSpec.describe RSpec::Distrib::Worker::RSpecRunner do # rubocop:disable RSpec/FilePath, RSpec/SpecFilePathFormat
+RSpec.describe RSpec::Distrib::Worker::RSpecRunner do # rubocop:disable RSpec/SpecFilePathFormat
   include RSpec::Support::InSubProcess
 
   # restore the original value to prevent leaking leader double to other examples
