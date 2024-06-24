@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DistribCore::Leader::DRbCallable do # rubocop:disable RSpec/FilePath, RSpec/SpecFilePathFormat
+RSpec.describe DistribCore::Leader::DRbCallable do # rubocop:disable RSpec/SpecFilePathFormat
   subject(:object) do
     Class.new do
       extend DistribCore::Leader::DRbCallable

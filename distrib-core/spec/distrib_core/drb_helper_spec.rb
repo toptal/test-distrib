@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DistribCore::DRbHelper do # rubocop:disable RSpec/FilePath, RSpec/SpecFilePathFormat
+RSpec.describe DistribCore::DRbHelper do # rubocop:disable RSpec/SpecFilePathFormat
   let(:broadcaster) { instance_double(DistribCore::LoggerBroadcaster) }
 
   before do
