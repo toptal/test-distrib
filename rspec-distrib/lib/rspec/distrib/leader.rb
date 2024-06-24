@@ -12,13 +12,13 @@ module RSpec
     # Transport used is [DRb](https://rubydoc.info/stdlib/drb/DRb)
     class Leader # rubocop:disable Metrics/ClassLength
       include ::DistribCore::Leader
-      # Used to interpolate with leader ip in order to generate the actual DRb server URL
+      # Used to interpolate with leader ip in order to generate the actual DRb server URL.
       DRB_SERVER_URL = 'druby://%s:8787'.freeze
-      # We can't calculate total amount of examples. But we need to provide a big number to prevent warnings
+      # We can't calculate total amount of examples. But we need to provide a big number to prevent warnings.
       FAKE_TOTAL_EXAMPLES_COUNT = 1_000_000_000
 
       class << self
-        # Starts the DRb server and Watchdog thread
+        # Starts the DRb server and Watchdog thread.
         #
         # @param seed [Integer] a seed for workers to randomize order of examples
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
@@ -74,8 +74,8 @@ module RSpec
         # rubocop:enable Metrics/AbcSize
       end
 
-      # Object shared through DRb is open for any calls. Including eval calls
-      # A simple way to prevent it - undef
+      # Object shared through DRb is open for any calls. Including eval calls.
+      # A simple way to prevent it - undef.
       undef :instance_eval
       undef :instance_exec
 
@@ -88,7 +88,8 @@ module RSpec
         logger.info "Using seed #{@seed}"
       end
 
-      # Get the next spec from the queue
+      # Get the next spec from the queue.
+      #
       # @return [String] spec file name
       # @example
       #   leader.next_file_to_run # => 'spec/services/user_service_spec.rb'
@@ -100,7 +101,7 @@ module RSpec
         end
       end
 
-      # Report example group results for a spec file
+      # Report example group results for a spec file.
       #
       # @param file_path [String] ex: './spec/services/user_service_spec.rb'
       # @param example_groups [Array<RSpec::Distrib::ExampleGroup>]
@@ -184,7 +185,6 @@ module RSpec
       def log_completed_percent # rubocop:disable Metrics/AbcSize
         @logged_percents ||= []
         log_every = 10
-
         completed_percent = (queue.completed_size.to_f / (queue.size + queue.completed_size) * 100).to_i
         bucket = completed_percent / log_every * log_every # convert 35 to 30
 

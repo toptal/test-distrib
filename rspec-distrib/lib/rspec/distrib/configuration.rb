@@ -24,7 +24,7 @@ module RSpec
     #     end
     #
     # Or set your own logic for retries.
-    # It should respond to `#retry_test?`, `#ignore_worker_failure?` methods
+    # It should respond to `#retry_test?`, `#ignore_worker_failure?` methods.
     #
     #     RSpec::Distrib.configure do |config|
     #       config.error_handler = MyErrorHandler
@@ -46,29 +46,29 @@ module RSpec
     #     end
     #
     # Set how long leader will wait before first spec processed by workers. Leader will exit if
-    # no specs picked in this period
+    # no specs picked in this period.
     #
     #     RSpec::Distrib.configure do |config|
     #       config.first_test_picked_timeout = 10*60 # 10 minutes
     #     end
     #
     # Set how long leader will wait if workers stopped processing the queue. Leader will exit if
-    # no specs picked in this period
+    # no specs picked in this period.
     #
     #     RSpec::Distrib.configure do |config|
     #       config.tests_processing_stopped_timeout = 5*60 # 5 minutes
     #     end
     #
     # Specify which formatters you want to use using `add_leader_formatter` or `add_worker_formatter` methods.
-    # See `RSpec.configuration.add_formatter` for more info
+    # See `RSpec.configuration.add_formatter` for more info.
     #
     #     RSpec::Distrib.configure do |config|
     #       config.add_leader_formatter('html', 'summary.html') # add HTML formatter which writes to 'summary.html' file
     #       config.add_worker_formatter('progress') # add progress formatter (prints dots to the console)
     #     end
     #
-    # Specify custom options for DRb service. Defaults are `{ safe_level: 1 }`
-    # See `DRb::DRbServer.new` for complete list
+    # Specify custom options for DRb service. Defaults are `{ safe_level: 1 }`.
+    # See `DRb::DRbServer.new` for complete list.
     #
     #     RSpec::Distrib.configure do |config|
     #       config.drb = {safe_level: 1}
@@ -85,7 +85,7 @@ module RSpec
     #
     class Configuration
       include ::DistribCore::Configuration
-      # Sets RSpec's `--color` option for workers with "force" mode, rewriting existing one
+      # Sets RSpec's `--color` option for workers with "force" mode, rewriting existing one.
       # Possible values: :on, :off; by default it's :automatic
       # See https://github.com/rspec/rspec-core/blob/7510b747cdb028dea4feb56cef8062cea14640a5/lib/rspec/core/configuration.rb#L937
       attr_accessor :worker_color_mode

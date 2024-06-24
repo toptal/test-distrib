@@ -1,4 +1,4 @@
-require 'distrib_core'
+require 'distrib-core'
 require 'rspec/distrib/configuration'
 
 # @see https://github.com/rspec/rspec

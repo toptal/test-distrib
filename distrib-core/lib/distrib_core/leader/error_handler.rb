@@ -17,6 +17,9 @@ module DistribCore
         @exception_extractor = exception_extractor
       end
 
+      # Decides if the test should be retried.
+      #
+      # @return [TrueClass, FalseClass]
       def retry_test?(test, results, exception) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
         return false if retries_per_test[test] >= retry_attempts
 
@@ -43,6 +46,9 @@ module DistribCore
         retried
       end
 
+      # Decides if the exception should be ignored.
+      #
+      # @return [TrueClass, FalseClass]
       def ignore_worker_failure?(exception)
         self.failed_workers_count += 1
 

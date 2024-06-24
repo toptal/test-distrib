@@ -6,7 +6,7 @@ require 'rspec/distrib/example_group'
 module RSpec
   module Distrib
     class Leader
-      # RSpec reporter local to the leader, but reachable by Workers.
+      # RSpec reporter local to the Leader, but reachable by Workers.
       # Used to accumulate the example execution results from worker machines.
       class Reporter
         # Failed statuses for an example
@@ -39,12 +39,12 @@ module RSpec
           reporter.example_group_finished(example_group)
         end
 
-        # Print the final results of the test suite
+        # Print the final results of the test suite.
         def finish
           reporter.finish
         end
 
-        # Notifies RSpec about exceptions unrelated to an example in order to halt execution
+        # Notifies RSpec about exceptions unrelated to an example in order to halt execution.
         #
         # @param exception [Exception]
         def notify_non_example_exception(exception, context_description)
@@ -67,7 +67,7 @@ module RSpec
           RSpec.configuration.reporter
         end
 
-        # Adds example to report. Notifies formatters
+        # Adds example to report. Notifies formatters.
         def report_example(example_result, will_be_retried:)
           status = example_result.execution_result.status.to_s
 
@@ -75,7 +75,7 @@ module RSpec
 
           if will_be_retried
             # We retry the whole file, but we only want to
-            # report the specs that actually failed and cause the retry
+            # report the specs that actually failed and cause the retry.
             return unless FAILED_STATUSES.include?(status)
 
             reporter.publish(:example_will_be_retried, example: example_result)

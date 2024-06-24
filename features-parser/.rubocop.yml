@@ -1,6 +1,7 @@
 AllCops:
   DisplayCopNames: true
   NewCops: enable
+  SuggestExtensions: false
 
 Style/StringLiterals:
   Enabled: true
