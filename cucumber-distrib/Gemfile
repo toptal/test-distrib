@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gemspec
+
+gem 'distrib-core', path: '../distrib-core'

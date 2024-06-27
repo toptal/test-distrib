@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+require_relative 'support/features_formatter'
+
+::Cucumber::Distrib.configure do |config|
+  config.tests_provider = -> {
+    folder = ENV.fetch('CUCUMBER_DISTRIB_FOLDER')
+    directory = Pathname(__dir__).join('features', folder)
+
+    raise "Invalid CUCUMBER_DISTRIB_FOLDER. No such directory - #{directory}." unless directory.directory?
+
+    Dir[directory.join('**/*.feature')].sort
+  }
+
+  config.logger.level = Logger::DEBUG
+
+  config.test_timeout = Integer(ENV.fetch('CUCUMBER_DISTRIB_FEATURES_TEST_TIMEOUT', '4'), 10)
+  config.first_test_picked_timeout = Integer(ENV.fetch('CUCUMBER_DISTRIB_FEATURES_FIRST_TEST_PICKED_TIMEOUT', '5'), 10)
+  config.tests_processing_stopped_timeout = Integer(ENV.fetch('CUCUMBER_DISTRIB_FEATURES_TESTS_PROCESSING_STOPPED_TIMEOUT', '4'), 10)
+
+  config.on_finish = -> { puts 'on_finish called' }
+
+  config.error_handler.retryable_exceptions = %w[RetryThisError]
+  config.error_handler.retry_attempts = 2
+
+  config.error_handler.fatal_worker_failures = []
+  config.error_handler.failed_workers_threshold = 0
+
+  config.before_test_report = ->(file_path, events, exception) do
+    events.each do |event|
+      event.metadata[:info_from_worker] = 'worker_id_or_something'
+    end
+  end
+end

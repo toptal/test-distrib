@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  linters:
+    name: cucumber-distrib - Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: cucumber-distrib
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+        working-directory: cucumber-distrib
+
+      - name: Run yardoc
+        run: bundle exec yardoc --fail-on-warning
+        working-directory: cucumber-distrib

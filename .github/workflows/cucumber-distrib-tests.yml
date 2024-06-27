@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  tests:
+    name: cucumber-distrib - Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: cucumber-distrib
+
+      - name: Run specs
+        run: bundle exec rspec spec
+        working-directory: cucumber-distrib
+
+      - name: Run features
+        run: bundle exec rspec features
+        working-directory: cucumber-distrib

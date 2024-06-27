@@ -1,0 +1,2 @@
+default: '. -r step_definitions -r ./support/ --format FeaturesFormatter -o /dev/null --format progress --publish-quiet'
+filtered: '. -r step_definitions -r ./support/ --format FeaturesFormatter -o /dev/null --format progress --publish-quiet --tags @passing'
