@@ -17,8 +17,7 @@ This is a monorepo. Please follow to each gem's directory to get more insights.
 
 ## cucumber-distrib
 
-cucumber-distrib gem is an implementation of distrib runner for [Cucumber](https://cucumber.io/).
-It will be open-sourced down the road. Stay tuned!
+[cucumber-distrib](./cucumber-distrib/README.md) gem is an implementation of distrib runner for [Cucumber](https://cucumber.io/).
 
 ## features-parser
 

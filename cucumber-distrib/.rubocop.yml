@@ -1,0 +1,50 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  NewCops: disable
+  SuggestExtensions: false
+  Exclude:
+    - features/fixtures/**/*
+    - bundle/**/*
+    - vendor/**/*
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - lib/cucumber/distrib/configuration.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - features/**/*
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+Style/FrozenStringLiteralComment:
+  Include:
+    - spec/**/*
+
+RSpec/DescribeClass:
+  Exclude:
+    - features/**/*
+
+RSpec/StubbedMock:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/PendingWithoutReason:
+  Enabled: false

@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+usage = <<USAGE
+  Usage: cucumber-distrib start [profile]
+         cucumber-distrib join leader_address
+USAGE
+
+command = ARGV.shift
+
+unless command && %w[start join].include?(command)
+  warn usage
+  exit 1
+end
+
+require 'cucumber/distrib'
+
+def load_custom_cucumber_distrib_configuration
+  load('.cucumber-distrib') if File.exist?('.cucumber-distrib')
+end
+
+%w[TERM INT].each do |signal|
+  ::DistribCore::ReceivedSignals.trap(signal)
+end
+
+case command
+when 'start'
+  Cucumber::Distrib.kind = :leader
+  load_custom_cucumber_distrib_configuration
+
+  require 'cucumber/distrib/leader'
+  profiles = ARGV
+
+  # Wrap in a thread to avoid insecure operation exceptions in rubygems and bundler
+  Thread.new { Cucumber::Distrib::Leader.start_service(profiles:) }.join
+when 'join'
+  Cucumber::Distrib.kind = :worker
+  load_custom_cucumber_distrib_configuration
+
+  require 'cucumber/distrib/worker'
+  leader_address = ARGV.shift
+  Cucumber::Distrib::Worker.join(leader_address)
+end
