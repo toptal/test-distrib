@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.description = ''
   s.required_ruby_version = '>= 3.2.4'
 
-  s.add_dependency 'cucumber', '~> 7.1.0'
+  s.add_dependency 'cucumber', '>= 7.1', '< 9.3'
   s.add_dependency 'distrib-core', '~> 0.0.1'
 
   s.add_development_dependency 'pry'
