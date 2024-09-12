@@ -87,7 +87,6 @@ module RSpec
         #
         # @param reporter [RSpec::Core::Reporter]
         #
-        # @return [Boolean] true in case there were no failures.
         # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
         def consume_queue(reporter)
           @reported_examples = []
@@ -120,7 +119,6 @@ module RSpec
         ensure
           # Putting examples back to the local reporter, so that results are consistent.
           reporter.examples.concat(@reported_examples)
-          false
         end
         # rubocop:enable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
