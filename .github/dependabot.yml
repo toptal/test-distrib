@@ -14,6 +14,7 @@ updates:
       - "ruby"
       - "dependencies"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -32,6 +33,7 @@ updates:
       - "ruby"
       - "dependencies"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -50,6 +52,7 @@ updates:
       - "ruby"
       - "dependencies"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -68,6 +71,7 @@ updates:
       - "ruby"
       - "dependencies"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     insecure-external-code-execution: allow
@@ -86,6 +90,7 @@ updates:
       - "dependencies"
       - "gha"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     open-pull-requests-limit: 2
