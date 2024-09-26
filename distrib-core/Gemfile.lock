@@ -53,7 +53,7 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
-    rubocop-rspec (3.0.4)
+    rubocop-rspec (3.0.5)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
@@ -63,7 +63,7 @@ GEM
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
     timecop (0.9.10)
-    unicode-display_width (2.5.0)
+    unicode-display_width (2.6.0)
     yard (0.9.37)
 
 PLATFORMS
